@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/logo_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="369dp"
+        android:layout_marginTop="20sp"
+        android:src="@drawable/aditi_logo"
+        android:contentDescription="@string/logodcp" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="370dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="153dp"
+        android:fontFamily="@font/aclonica"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/htext"
+        android:textAlignment="center"
+        android:textColor="#333"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/button_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Sign-in button -->
+        <Button
+            android:id="@+id/sign_in_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sin"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/button_border"
+            />
+
+
+        <!-- Registration button -->
+        <Button
+            android:id="@+id/registration_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sup"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_border"
+            />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

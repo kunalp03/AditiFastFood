@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "573779567366",
+    "project_id": "aditifastfood-d13cc",
+    "storage_bucket": "aditifastfood-d13cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:573779567366:android:a44812f6f0d7dda3edb487",
+        "android_client_info": {
+          "package_name": "com.example.aditifastfood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "573779567366-0i5sa0t7farai3o63k8j7rrd97paf49g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoCT1qJ8YC1AAGtbk_SXkZLiFv7rHuye8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "573779567366-0i5sa0t7farai3o63k8j7rrd97paf49g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

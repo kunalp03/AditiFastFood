@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Aditi</string>
+    <string name="logodcp">App Logo</string>
+    <string name="htext">Order, eat and enjoy</string>
+    <string name="sin">Sign In</string>
+    <string name="sup">Sign Up</string>
+    <string name="rpage">Registration Page</string>
+    <string name="lpage">Login Page</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="pass">Password</string>
+    <string name="reg">Register</string>
+    <string name="areg">Already Registered? Login here</string>
+    <string name="login">Login</string>
+    <string name="create">Create Account</string>
+    <string name="logout">Logout</string>
+    <string name="profile">Your Profile</string>
+    <string name="forgot">Forgot password?</string>
+    <string name="acc">User Profile</string>
+    <string name="mypro">My Profile</string>
+    <string name="myord">My Orders</string>
+    <string name="abt">About Us</string>
+    <string name="accinfo">Account Info</string>
+    <string name="abtpara">
+        Welcome to our fast food app! Our mission is to make ordering food quick, easy, and enjoyable. Whether you\'re craving a burger, pizza, or something healthier, our app offers a wide selection of delicious meals from top fast food chains. Our app is designed with you in mind. We know that you don\'t always have time to wait in long lines or sit down for a meal. That\'s why we\'ve created a convenient platform that allows you to order food on-the-go. With just a few taps on your phone, you can customize your order and enjoy your food in no time. We are committed to providing our customers with the best possible experience.  We also offer a range of payment options, including cash, credit, and mobile payments, to make your ordering experience as smooth as possible.
+    </string>
+
+    <string name="sharedpref">my_shared_preferences</string>
+</resources>
