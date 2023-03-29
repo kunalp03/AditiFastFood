@@ -242,6 +242,8 @@ public class Cart extends AppCompatActivity implements PaymentResultListener {
     @Override
     public void onPaymentSuccess(String s) {
         Toast.makeText(this, "Payment Success", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(Cart.this, timer.class);
+        startActivity(intent);
     }
 
     @Override
