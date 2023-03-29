@@ -20,7 +20,9 @@ import java.io.FileOutputStream;
 public class juice extends AppCompatActivity {
 
     TextView t1, rs1;
-    Button juice;
+    TextView teatext, teaprice;
+    TextView coketxt, cokeprice;
+    Button juice, Tea, coke;
     SharedPreferences sp;
     @SuppressLint("MissingInflatedId")
     @Override
@@ -34,6 +36,14 @@ public class juice extends AppCompatActivity {
         rs1 = findViewById(R.id.textView37);
         juice = findViewById(R.id.button29);
 
+        teatext = findViewById(R.id.textView38);
+        teaprice = findViewById(R.id.textView39);
+        Tea = findViewById(R.id.button30);
+
+        coketxt = findViewById(R.id.textView36);
+        cokeprice = findViewById(R.id.textView41);
+        coke = findViewById(R.id.button31);
+
         bv = findViewById(R.id.bottomNavigationView);
         bv.getMenu().findItem(R.id.home).setChecked(true);
         bv.setOnNavigationItemSelectedListener(item -> {
@@ -41,6 +51,29 @@ public class juice extends AppCompatActivity {
             return true;
         });
 
+        coke.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sp.edit().putString("juice",coketxt.getText().toString()).apply();
+                sp.edit().putString("juiceprice",cokeprice.getText().toString()).apply();
+                String content = new String(coketxt.getText().toString());
+                String cprice1 = new String(cokeprice.getText().toString());
+                writeToFile("juice.txt", content, cprice1);
+                Toast.makeText(juice.this, coketxt.getText()+" added to cart", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Tea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sp.edit().putString("juice",teatext.getText().toString()).apply();
+                sp.edit().putString("juiceprice",teaprice.getText().toString()).apply();
+                String content = new String(teatext.getText().toString());
+                String cprice1 = new String(teaprice.getText().toString());
+                writeToFile("juice.txt", content, cprice1);
+                Toast.makeText(juice.this, teatext.getText()+" added to cart", Toast.LENGTH_SHORT).show();
+            }
+        });
         juice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

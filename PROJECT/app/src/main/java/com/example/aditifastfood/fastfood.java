@@ -2,6 +2,7 @@ package com.example.aditifastfood;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,9 +22,11 @@ public class fastfood extends AppCompatActivity {
     BottomNavigationView bv;
     TextView t1, rs1;
     TextView pavbhajitxt, pavbhajiprice;
-    Button vada, pavbhaji;
+    TextView dosatxt, dosaprice;
+    Button vada, pavbhaji, dosa;
     SharedPreferences sp;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,11 +41,30 @@ public class fastfood extends AppCompatActivity {
         pavbhajiprice = findViewById(R.id.textView27);
         pavbhaji = findViewById(R.id.button24);
 
+        dosatxt = findViewById(R.id.textView28);
+        dosaprice = findViewById(R.id.textView24);
+        dosa = findViewById(R.id.button25);
+
+
+
         bv = findViewById(R.id.bottomNavigationView);
         bv.getMenu().findItem(R.id.home).setChecked(true);
         bv.setOnNavigationItemSelectedListener(item -> {
             myClickItem(item);
             return true;
+        });
+
+
+        dosa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sp.edit().putString("vada",dosatxt.getText().toString()).apply();
+                sp.edit().putString("vadaprice",dosaprice.getText().toString()).apply();
+                String content = new String(dosatxt.getText().toString());
+                String cprice1 = new String(dosaprice.getText().toString());
+                writeToFile("fastf.txt", content, cprice1);
+                Toast.makeText(fastfood.this, dosatxt.getText()+" added to cart", Toast.LENGTH_SHORT).show();
+            }
         });
 
         pavbhaji.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +78,7 @@ public class fastfood extends AppCompatActivity {
                 Toast.makeText(fastfood.this, pavbhajitxt.getText()+" added to cart", Toast.LENGTH_SHORT).show();
             }
         });
+
         vada.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

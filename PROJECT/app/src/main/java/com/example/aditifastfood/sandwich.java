@@ -21,7 +21,9 @@ import java.io.FileOutputStream;
 public class sandwich extends AppCompatActivity {
 
     TextView t1, rs1;
-    Button sw;
+    TextView cheesetxt, cheeseprice;
+    TextView grilledtxt, grilledprice;
+    Button sw, cheesebtn, grilled;
     SharedPreferences sp;
 
     @SuppressLint("MissingInflatedId")
@@ -36,6 +38,14 @@ public class sandwich extends AppCompatActivity {
         rs1 = findViewById(R.id.textView49);
         sw = findViewById(R.id.button35);
 
+        cheesetxt = findViewById(R.id.textView48);
+        cheeseprice = findViewById(R.id.textView51);
+        cheesebtn = findViewById(R.id.button36);
+
+        grilledtxt = findViewById(R.id.textView50);
+        grilledprice = findViewById(R.id.textView53);
+        grilled = findViewById(R.id.button37);
+
         bv = findViewById(R.id.bottomNavigationView);
         bv.getMenu().findItem(R.id.home).setChecked(true);
         bv.setOnNavigationItemSelectedListener(item -> {
@@ -43,6 +53,29 @@ public class sandwich extends AppCompatActivity {
             return true;
         });
 
+        grilled.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sp.edit().putString("sandwich",grilledtxt.getText().toString()).apply();
+                sp.edit().putString("sandwichprice",grilledprice.getText().toString()).apply();
+                String content = new String(grilledtxt.getText().toString());
+                String cprice1 = new String(grilledprice.getText().toString());
+                writeToFile("sandwich.txt", content, cprice1);
+                Toast.makeText(sandwich.this, grilledtxt.getText()+" added to cart", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        cheesebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sp.edit().putString("sandwich",cheesetxt.getText().toString()).apply();
+                sp.edit().putString("sandwichprice",cheeseprice.getText().toString()).apply();
+                String content = new String(cheesetxt.getText().toString());
+                String cprice1 = new String(cheeseprice.getText().toString());
+                writeToFile("sandwich.txt", content, cprice1);
+                Toast.makeText(sandwich.this, cheesetxt.getText()+" added to cart", Toast.LENGTH_SHORT).show();
+            }
+        });
         sw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

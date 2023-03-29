@@ -20,7 +20,9 @@ import java.io.FileOutputStream;
 public class icecream extends AppCompatActivity {
 
     TextView t1, rs1;
-    Button ice;
+    TextView candytxt, candyprice;
+    TextView cuptxt, cupprice;
+    Button ice, candy, cup;
     SharedPreferences sp;
     @SuppressLint("MissingInflatedId")
     @Override
@@ -34,11 +36,42 @@ public class icecream extends AppCompatActivity {
         rs1 = findViewById(R.id.textView31);
         ice = findViewById(R.id.button26);
 
+        candytxt = findViewById(R.id.textView32);
+        candyprice = findViewById(R.id.textView33);
+        candy = findViewById(R.id.button27);
+
+        cuptxt = findViewById(R.id.textView34);
+        cupprice = findViewById(R.id.textView35);
+        cup = findViewById(R.id.button28);
+
         bv = findViewById(R.id.bottomNavigationView);
         bv.getMenu().findItem(R.id.home).setChecked(true);
         bv.setOnNavigationItemSelectedListener(item -> {
             myClickItem(item);
             return true;
+        });
+
+        cup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sp.edit().putString("icecream",cuptxt.getText().toString()).apply();
+                sp.edit().putString("icecreamprice",cupprice.getText().toString()).apply();
+                String content = new String(cuptxt.getText().toString());
+                String cprice1 = new String(cupprice.getText().toString());
+                writeToFile("icecream.txt", content, cprice1);
+                Toast.makeText(icecream.this, cuptxt.getText()+" added to cart", Toast.LENGTH_SHORT).show();
+            }
+        });
+        candy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sp.edit().putString("icecream",candytxt.getText().toString()).apply();
+                sp.edit().putString("icecreamprice",candyprice.getText().toString()).apply();
+                String content = new String(candytxt.getText().toString());
+                String cprice1 = new String(candyprice.getText().toString());
+                writeToFile("icecream.txt", content, cprice1);
+                Toast.makeText(icecream.this, candytxt.getText()+" added to cart", Toast.LENGTH_SHORT).show();
+            }
         });
 
         ice.setOnClickListener(new View.OnClickListener() {
