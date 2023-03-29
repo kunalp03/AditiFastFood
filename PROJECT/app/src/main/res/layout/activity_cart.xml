@@ -5,10 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,7 +26,7 @@
                 android:id="@+id/textView56"
                 android:layout_width="147dp"
                 android:layout_height="56dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/acme"
                 android:text="TextView"
@@ -32,6 +38,7 @@
                 android:id="@+id/textView57"
                 android:layout_width="88dp"
                 android:layout_height="55dp"
+                android:layout_marginLeft="60dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/acme"
                 android:text="TextView"
@@ -39,24 +46,76 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <Spinner
-                android:id="@+id/spinner2"
-                android:layout_width="93dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="20dp"
-                android:scrollbarSize="10dp"
-                tools:ignore="SpeakableTextPresentCheck" />
         </LinearLayout>
-    </ScrollView>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/textView58"
+                android:layout_width="147dp"
+                android:layout_height="56dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/acme"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView59"
+                android:layout_width="88dp"
+                android:layout_height="55dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/acme"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/textView60"
+                android:layout_width="147dp"
+                android:layout_height="56dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/acme"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView61"
+                android:layout_width="88dp"
+                android:layout_height="55dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/acme"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
 
@@ -64,7 +123,7 @@
                 android:id="@+id/textView54"
                 android:layout_width="147dp"
                 android:layout_height="56dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/acme"
                 android:text="TextView"
@@ -76,6 +135,7 @@
                 android:id="@+id/textView55"
                 android:layout_width="88dp"
                 android:layout_height="55dp"
+                android:layout_marginLeft="60dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/acme"
                 android:text="TextView"
@@ -83,15 +143,83 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="93dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="20dp"
-                android:scrollbarSize="10dp"
-                tools:ignore="SpeakableTextPresentCheck" />
         </LinearLayout>
-    </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView62"
+                android:layout_width="147dp"
+                android:layout_height="56dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/acme"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView63"
+                android:layout_width="88dp"
+                android:layout_height="55dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/acme"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView64"
+                android:layout_width="147dp"
+                android:layout_height="56dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/acme"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView65"
+                android:layout_width="88dp"
+                android:layout_height="55dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/acme"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="150dp"
+            android:id="@+id/clr"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="clear"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

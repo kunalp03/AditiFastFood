@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,14 +22,21 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.io.File;
 import java.io.FileInputStream;
 
-public class Cart extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class Cart extends AppCompatActivity{
 
     String total[] = {"1", "2", "3", "4", "5"};
-    Spinner count;
+    EditText e1;
+
     BottomNavigationView bv;
     SharedPreferences sp;
     TextView t1;
     TextView prc1;
+    TextView vadatxt, vadaprice;
+    TextView swtxt, swprice;
+    TextView pizzatxt, pizzaprice;
+    TextView icetxt, iceprice;
+    TextView juicetxt, juiceprice;
+    Button clear;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,15 +44,36 @@ public class Cart extends AppCompatActivity implements AdapterView.OnItemSelecte
         setContentView(R.layout.activity_cart);
 
 
-        count = findViewById(R.id.spinner);
-        ArrayAdapter ar = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, total);
-        count.setAdapter(ar);
-        count.setOnItemSelectedListener(this);
-
+//        ArrayAdapter ar = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, total);
+//        ArrayAdapter ar2 = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, total);
+//
+//        count.setAdapter(ar);
+//        count.setOnItemSelectedListener(this);
+//
+//        count2.setAdapter(ar2);
+//        count2.setOnItemSelectedListener(this);
 
         sp=getSharedPreferences("data",MODE_PRIVATE);
         t1 = findViewById(R.id.textView54);
         prc1 = findViewById(R.id.textView55);
+
+        vadatxt = findViewById(R.id.textView56);
+        vadaprice = findViewById(R.id.textView57);
+
+        swtxt = findViewById(R.id.textView58);
+        swprice = findViewById(R.id.textView59);
+
+        pizzatxt = findViewById(R.id.textView60);
+        pizzaprice = findViewById(R.id.textView61);
+
+        icetxt = findViewById(R.id.textView62);
+        iceprice = findViewById(R.id.textView63);
+
+        juicetxt = findViewById(R.id.textView64);
+        juiceprice = findViewById(R.id.textView65);
+
+        clear = findViewById(R.id.clr);
+
         bv = findViewById(R.id.bottomNavigationView);
         bv.getMenu().findItem(R.id.cart).setChecked(true);
         bv.setOnNavigationItemSelectedListener(item -> {
@@ -53,9 +83,64 @@ public class Cart extends AppCompatActivity implements AdapterView.OnItemSelecte
 
             if (bv.getMenu().findItem(R.id.cart).isChecked()) {
                 String content = readFromFile("chinese1.txt");
-                t1.setText(sp.getString("cart1", "Cart is empty"));
+                t1.setText(sp.getString("cart1", ""));
                 prc1.setText(sp.getString("cart1price", ""));
+
+                String content2 = readFromFile("fastf.txt");
+                vadatxt.setText(sp.getString("vada", ""));
+                vadaprice.setText(sp.getString("vadaprice", ""));
+
+                String content3 = readFromFile("sandwich.txt");
+                swtxt.setText(sp.getString("sandwich", ""));
+                swprice.setText(sp.getString("sandwichprice", ""));
+
+                String content4 = readFromFile("pizza.txt");
+                pizzatxt.setText(sp.getString("pizza", ""));
+                pizzaprice.setText(sp.getString("pizzaprice", ""));
+
+                String content5 = readFromFile("icecream.txt");
+                icetxt.setText(sp.getString("icecream", ""));
+                iceprice.setText(sp.getString("icecreamprice", ""));
+
+                String content6 = readFromFile("juice.txt");
+                juicetxt.setText(sp.getString("juice", ""));
+                juiceprice.setText(sp.getString("juiceprice", ""));
         }
+
+//            clear.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                    File file = new File("chinese1.txt");
+//                    if (file.delete()){
+//                        t1.setText(sp.getString("", ""));
+//                        prc1.setText(sp.getString("", ""));
+//                    }
+//                    String content = readFromFile("chinese1.txt");
+//                    t1.setText(sp.getString("", ""));
+//                    prc1.setText(sp.getString("", ""));
+//
+//                    String content2 = readFromFile("fastf.txt");
+//                    vadatxt.setText(sp.getString("", ""));
+//                    vadaprice.setText(sp.getString("", ""));
+//
+//                    String content3 = readFromFile("sandwich.txt");
+//                    swtxt.setText(sp.getString("", ""));
+//                    swprice.setText(sp.getString("", ""));
+//
+//                    String content4 = readFromFile("pizza.txt");
+//                    pizzatxt.setText(sp.getString("", ""));
+//                    pizzaprice.setText(sp.getString("", ""));
+//
+//                    String content5 = readFromFile("icecream.txt");
+//                    icetxt.setText(sp.getString("", ""));
+//                    iceprice.setText(sp.getString("", ""));
+//
+//
+//                    juicetxt.setText(sp.getString("", ""));
+//                    juiceprice.setText(sp.getString("", ""));
+//                }
+//            });
     }
 
     public void myClickItem(MenuItem item){
@@ -92,17 +177,23 @@ public class Cart extends AppCompatActivity implements AdapterView.OnItemSelecte
         }
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Double price = Double.parseDouble(sp.getString("cart1price","0"));
-        Double cal = Double.parseDouble(total[position]);
-        Double rate = price*cal;
-        Integer a=rate.intValue();
-        prc1.setText(a.toString());
-    }
+//    @Override
+//    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//            Double price = Double.parseDouble(sp.getString("cart1price", "0"));
+//            Double cal = Double.parseDouble(total[position]);
+//            Double rate = price * cal;
+//            Integer a = rate.intValue();
+//            prc1.setText(a.toString());
+//
+//            Double price2 = Double.parseDouble(sp.getString("vadaprice", "0"));
+//            Double cal2 = Double.parseDouble(total[position]);
+//            Double rate2 = price2 * cal2;
+//            Integer a2 = rate2.intValue();
+//            vadaprice.setText(a2.toString());
+//    }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
+//    @Override
+//    public void onNothingSelected(AdapterView<?> parent) {
+//
+//    }
 }
