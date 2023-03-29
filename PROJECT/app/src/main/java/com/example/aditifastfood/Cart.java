@@ -18,11 +18,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.razorpay.Checkout;
+import com.razorpay.PaymentResultListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
 
-public class Cart extends AppCompatActivity{
+public class Cart extends AppCompatActivity implements PaymentResultListener {
 
     String total[] = {"1", "2", "3", "4", "5"};
     EditText e1;
@@ -52,6 +57,10 @@ public class Cart extends AppCompatActivity{
 //
 //        count2.setAdapter(ar2);
 //        count2.setOnItemSelectedListener(this);
+
+
+        //pay
+        findViewById(R.id.ord2).setOnClickListener(v -> pay());
 
         sp=getSharedPreferences("data",MODE_PRIVATE);
         t1 = findViewById(R.id.textView54);
@@ -173,6 +182,28 @@ public class Cart extends AppCompatActivity{
                 }
             });
     }
+    private void pay()
+    {
+        Checkout co = new Checkout();
+        JSONObject object = new JSONObject();
+        try {
+            object.put("name","Sameep Hedaoo");
+            object.put("desc","This is a test");
+            object.put("currency","INR");
+            object.put("amount","10000");
+
+            JSONObject prefill = new JSONObject();
+            prefill.put("contact","8109477448");
+            prefill.put("email","sameephedaoo@gmail.com");
+            prefill.put("prefill",prefill);
+            co.open(Cart.this,object);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+    }
 
     public void myClickItem(MenuItem item){
         switch (item.getItemId()){
@@ -206,6 +237,16 @@ public class Cart extends AppCompatActivity{
             ex.printStackTrace();
             return ex.toString();
         }
+    }
+
+    @Override
+    public void onPaymentSuccess(String s) {
+        Toast.makeText(this, "Payment Success", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onPaymentError(int i, String s) {
+        Toast.makeText(this, "Payment Failed", Toast.LENGTH_SHORT).show();
     }
 
 //    @Override
