@@ -107,10 +107,41 @@ public class Cart extends AppCompatActivity{
                 juiceprice.setText(sp.getString("juiceprice", ""));
         }
 
-//            clear.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
+            clear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    sp.edit().putString("cart1","").apply();
+                    sp.edit().putString("cart1price","").apply();
+                    t1.setText("");
+                    prc1.setText("");
+
+                    sp.edit().putString("vada","").apply();
+                    sp.edit().putString("vadaprice","").apply();
+                    vadatxt.setText("");
+                    vadaprice.setText("");
+
+                    sp.edit().putString("sandwich","").apply();
+                    sp.edit().putString("sandwichprice","").apply();
+                    swtxt.setText("");
+                    swprice.setText("");
+
+                    sp.edit().putString("pizza","").apply();
+                    sp.edit().putString("pizzaprice","").apply();
+                    pizzatxt.setText("");
+                    pizzaprice.setText("");
+
+                    sp.edit().putString("icecream","").apply();
+                    sp.edit().putString("icecreamprice","").apply();
+                    icetxt.setText("");
+                    iceprice.setText("");
+
+                    sp.edit().putString("juice","").apply();
+                    sp.edit().putString("juiceprice","").apply();
+                    juicetxt.setText("");
+                    juiceprice.setText("");
+
+
 //                    File file = new File("chinese1.txt");
 //                    if (file.delete()){
 //                        t1.setText(sp.getString("", ""));
@@ -139,8 +170,8 @@ public class Cart extends AppCompatActivity{
 //
 //                    juicetxt.setText(sp.getString("", ""));
 //                    juiceprice.setText(sp.getString("", ""));
-//                }
-//            });
+                }
+            });
     }
 
     public void myClickItem(MenuItem item){
