@@ -20,8 +20,8 @@ import java.io.FileOutputStream;
 public class fastfood extends AppCompatActivity {
     BottomNavigationView bv;
     TextView t1, rs1;
-    Spinner count;
-    Button vada;
+    TextView pavbhajitxt, pavbhajiprice;
+    Button vada, pavbhaji;
     SharedPreferences sp;
 
     @Override
@@ -34,6 +34,10 @@ public class fastfood extends AppCompatActivity {
         rs1 = findViewById(R.id.textView25);
         vada = findViewById(R.id.button23);
 
+        pavbhajitxt = findViewById(R.id.textView26);
+        pavbhajiprice = findViewById(R.id.textView27);
+        pavbhaji = findViewById(R.id.button24);
+
         bv = findViewById(R.id.bottomNavigationView);
         bv.getMenu().findItem(R.id.home).setChecked(true);
         bv.setOnNavigationItemSelectedListener(item -> {
@@ -41,6 +45,17 @@ public class fastfood extends AppCompatActivity {
             return true;
         });
 
+        pavbhaji.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sp.edit().putString("vada",pavbhajitxt.getText().toString()).apply();
+                sp.edit().putString("vadaprice",pavbhajiprice.getText().toString()).apply();
+                String content = new String(pavbhajitxt.getText().toString());
+                String cprice1 = new String(pavbhajiprice.getText().toString());
+                writeToFile("fastf.txt", content, cprice1);
+                Toast.makeText(fastfood.this, pavbhajitxt.getText()+" added to cart", Toast.LENGTH_SHORT).show();
+            }
+        });
         vada.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

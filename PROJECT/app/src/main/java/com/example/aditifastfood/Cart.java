@@ -31,6 +31,7 @@ public class Cart extends AppCompatActivity implements PaymentResultListener {
 
     String total[] = {"1", "2", "3", "4", "5"};
     EditText e1;
+    TextView sum;
 
     BottomNavigationView bv;
     SharedPreferences sp;
@@ -47,16 +48,6 @@ public class Cart extends AppCompatActivity implements PaymentResultListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
-
-//        ArrayAdapter ar = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, total);
-//        ArrayAdapter ar2 = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, total);
-//
-//        count.setAdapter(ar);
-//        count.setOnItemSelectedListener(this);
-//
-//        count2.setAdapter(ar2);
-//        count2.setOnItemSelectedListener(this);
 
 
         //pay
@@ -82,6 +73,9 @@ public class Cart extends AppCompatActivity implements PaymentResultListener {
         juiceprice = findViewById(R.id.textView65);
 
         clear = findViewById(R.id.clr);
+        
+        sum = findViewById(R.id.textView67);
+        
 
         bv = findViewById(R.id.bottomNavigationView);
         bv.getMenu().findItem(R.id.cart).setChecked(true);
@@ -90,31 +84,61 @@ public class Cart extends AppCompatActivity implements PaymentResultListener {
             return true;
         });
 
+        Integer calculation = 0;
             if (bv.getMenu().findItem(R.id.cart).isChecked()) {
                 String content = readFromFile("chinese1.txt");
                 t1.setText(sp.getString("cart1", ""));
                 prc1.setText(sp.getString("cart1price", ""));
+                if(!prc1.getText().toString().isEmpty()){
+                    calculation =calculation + Integer.parseInt(prc1.getText().toString());
+                    sum.setText(calculation.toString());
+                }
 
                 String content2 = readFromFile("fastf.txt");
                 vadatxt.setText(sp.getString("vada", ""));
                 vadaprice.setText(sp.getString("vadaprice", ""));
+                if(!vadaprice.getText().toString().isEmpty()){
+                    calculation =calculation + Integer.parseInt(vadaprice.getText().toString());
+                    sum.setText(calculation.toString());
+                }
+//                calculation = Integer.parseInt(vadaprice.getText().toString());
+
 
                 String content3 = readFromFile("sandwich.txt");
                 swtxt.setText(sp.getString("sandwich", ""));
                 swprice.setText(sp.getString("sandwichprice", ""));
+                if(!swprice.getText().toString().isEmpty()){
+                    calculation =calculation + Integer.parseInt(swprice.getText().toString());
+                    sum.setText(calculation.toString());
+                }
+
 
                 String content4 = readFromFile("pizza.txt");
                 pizzatxt.setText(sp.getString("pizza", ""));
                 pizzaprice.setText(sp.getString("pizzaprice", ""));
+                if(!pizzaprice.getText().toString().isEmpty()){
+                    calculation =calculation + Integer.parseInt(pizzaprice.getText().toString());
+                    sum.setText(calculation.toString());
+                }
+
 
                 String content5 = readFromFile("icecream.txt");
                 icetxt.setText(sp.getString("icecream", ""));
                 iceprice.setText(sp.getString("icecreamprice", ""));
+                if(!iceprice.getText().toString().isEmpty()){
+                    calculation =calculation + Integer.parseInt(iceprice.getText().toString());
+                    sum.setText(calculation.toString());
+                }
+
 
                 String content6 = readFromFile("juice.txt");
                 juicetxt.setText(sp.getString("juice", ""));
                 juiceprice.setText(sp.getString("juiceprice", ""));
-        }
+                if(!juiceprice.getText().toString().isEmpty()){
+                    calculation =calculation + Integer.parseInt(juiceprice.getText().toString());
+                    sum.setText(calculation.toString());
+                }
+            }
 
             clear.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -150,35 +174,7 @@ public class Cart extends AppCompatActivity implements PaymentResultListener {
                     juicetxt.setText("");
                     juiceprice.setText("");
 
-
-//                    File file = new File("chinese1.txt");
-//                    if (file.delete()){
-//                        t1.setText(sp.getString("", ""));
-//                        prc1.setText(sp.getString("", ""));
-//                    }
-//                    String content = readFromFile("chinese1.txt");
-//                    t1.setText(sp.getString("", ""));
-//                    prc1.setText(sp.getString("", ""));
-//
-//                    String content2 = readFromFile("fastf.txt");
-//                    vadatxt.setText(sp.getString("", ""));
-//                    vadaprice.setText(sp.getString("", ""));
-//
-//                    String content3 = readFromFile("sandwich.txt");
-//                    swtxt.setText(sp.getString("", ""));
-//                    swprice.setText(sp.getString("", ""));
-//
-//                    String content4 = readFromFile("pizza.txt");
-//                    pizzatxt.setText(sp.getString("", ""));
-//                    pizzaprice.setText(sp.getString("", ""));
-//
-//                    String content5 = readFromFile("icecream.txt");
-//                    icetxt.setText(sp.getString("", ""));
-//                    iceprice.setText(sp.getString("", ""));
-//
-//
-//                    juicetxt.setText(sp.getString("", ""));
-//                    juiceprice.setText(sp.getString("", ""));
+                    sum.setText("0");
                 }
             });
     }

@@ -27,7 +27,8 @@ public class chinese extends AppCompatActivity {
     TextView t1, rs1;
     Spinner count;
     TextView manchuriantxt, manchurianprice;
-    Button b1, manchurianbtn;
+    TextView friedtxt, friedprice;
+    Button b1, manchurianbtn, friedbtn;
     SharedPreferences sp;
     @SuppressLint("MissingInflatedId")
     @Override
@@ -46,9 +47,16 @@ public class chinese extends AppCompatActivity {
         manchuriantxt = findViewById(R.id.textView15);
         manchurianprice = findViewById(R.id.textView21);
         manchurianbtn = findViewById(R.id.button21);
+
         b1 = findViewById(R.id.button20);
         t1 = findViewById(R.id.textView22);
         rs1 = findViewById(R.id.textView18);
+
+        friedtxt = findViewById(R.id.textView20);
+        friedtxt = findViewById(R.id.textView23);
+        friedbtn = findViewById(R.id.button22);
+
+
 
         manchurianbtn.setOnClickListener(new View.OnClickListener() {
             @Override
