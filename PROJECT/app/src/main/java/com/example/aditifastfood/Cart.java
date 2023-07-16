@@ -1,23 +1,24 @@
 package com.example.aditifastfood;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 
@@ -29,180 +30,167 @@ import java.io.FileInputStream;
 
 public class Cart extends AppCompatActivity implements PaymentResultListener {
 
-    String total[] = {"1", "2", "3", "4", "5"};
-    EditText e1;
-    TextView sum;
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
+    SharedPreferences sp;
+    Checkout co;
+    JSONObject object;
+
+    String userId;
+    Integer calculation = 0;
+
+    TextView t1, prc1, vadatxt, vadaprice, swtxt, swprice, pizzatxt, pizzaprice, icetxt, iceprice, juicetxt, juiceprice, sum;
+    Button clear;
 
     BottomNavigationView bv;
-    SharedPreferences sp;
-    TextView t1;
-    TextView prc1;
-    TextView vadatxt, vadaprice;
-    TextView swtxt, swprice;
-    TextView pizzatxt, pizzaprice;
-    TextView icetxt, iceprice;
-    TextView juicetxt, juiceprice;
-    Button clear;
-    @SuppressLint("MissingInflatedId")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
+        co = new Checkout();
+        object = new JSONObject();
 
-        //pay
-        findViewById(R.id.ord2).setOnClickListener(v -> pay());
+        sp = getSharedPreferences("data", MODE_PRIVATE);
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
 
-        sp=getSharedPreferences("data",MODE_PRIVATE);
+        userId = fAuth.getCurrentUser().getUid();
+
         t1 = findViewById(R.id.textView54);
         prc1 = findViewById(R.id.textView55);
-
         vadatxt = findViewById(R.id.textView56);
         vadaprice = findViewById(R.id.textView57);
-
         swtxt = findViewById(R.id.textView58);
         swprice = findViewById(R.id.textView59);
-
         pizzatxt = findViewById(R.id.textView60);
         pizzaprice = findViewById(R.id.textView61);
-
         icetxt = findViewById(R.id.textView62);
         iceprice = findViewById(R.id.textView63);
-
         juicetxt = findViewById(R.id.textView64);
         juiceprice = findViewById(R.id.textView65);
-
-        clear = findViewById(R.id.clr);
-        
         sum = findViewById(R.id.textView67);
-        
-
+        clear = findViewById(R.id.clr);
         bv = findViewById(R.id.bottomNavigationView);
+
         bv.getMenu().findItem(R.id.cart).setChecked(true);
         bv.setOnNavigationItemSelectedListener(item -> {
             myClickItem(item);
             return true;
         });
 
-        Integer calculation = 0;
-            if (bv.getMenu().findItem(R.id.cart).isChecked()) {
-                String content = readFromFile("chinese1.txt");
-                t1.setText(sp.getString("cart1", ""));
-                prc1.setText(sp.getString("cart1price", ""));
-                if(!prc1.getText().toString().isEmpty()){
-                    calculation =calculation + Integer.parseInt(prc1.getText().toString());
-                    sum.setText(calculation.toString());
-                }
+        loadCartItems();
+        updateCalculation();
 
-                String content2 = readFromFile("fastf.txt");
-                vadatxt.setText(sp.getString("vada", ""));
-                vadaprice.setText(sp.getString("vadaprice", ""));
-                if(!vadaprice.getText().toString().isEmpty()){
-                    calculation =calculation + Integer.parseInt(vadaprice.getText().toString());
-                    sum.setText(calculation.toString());
-                }
-//                calculation = Integer.parseInt(vadaprice.getText().toString());
+        clear.setOnClickListener(v -> {
+            clearCartItems();
+            updateCalculation();
+            sum.setText("0");
+        });
 
-
-                String content3 = readFromFile("sandwich.txt");
-                swtxt.setText(sp.getString("sandwich", ""));
-                swprice.setText(sp.getString("sandwichprice", ""));
-                if(!swprice.getText().toString().isEmpty()){
-                    calculation =calculation + Integer.parseInt(swprice.getText().toString());
-                    sum.setText(calculation.toString());
-                }
-
-
-                String content4 = readFromFile("pizza.txt");
-                pizzatxt.setText(sp.getString("pizza", ""));
-                pizzaprice.setText(sp.getString("pizzaprice", ""));
-                if(!pizzaprice.getText().toString().isEmpty()){
-                    calculation =calculation + Integer.parseInt(pizzaprice.getText().toString());
-                    sum.setText(calculation.toString());
-                }
-
-
-                String content5 = readFromFile("icecream.txt");
-                icetxt.setText(sp.getString("icecream", ""));
-                iceprice.setText(sp.getString("icecreamprice", ""));
-                if(!iceprice.getText().toString().isEmpty()){
-                    calculation =calculation + Integer.parseInt(iceprice.getText().toString());
-                    sum.setText(calculation.toString());
-                }
-
-
-                String content6 = readFromFile("juice.txt");
-                juicetxt.setText(sp.getString("juice", ""));
-                juiceprice.setText(sp.getString("juiceprice", ""));
-                if(!juiceprice.getText().toString().isEmpty()){
-                    calculation =calculation + Integer.parseInt(juiceprice.getText().toString());
-                    sum.setText(calculation.toString());
-                }
-            }
-
-            clear.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    sp.edit().putString("cart1","").apply();
-                    sp.edit().putString("cart1price","").apply();
-                    t1.setText("");
-                    prc1.setText("");
-
-                    sp.edit().putString("vada","").apply();
-                    sp.edit().putString("vadaprice","").apply();
-                    vadatxt.setText("");
-                    vadaprice.setText("");
-
-                    sp.edit().putString("sandwich","").apply();
-                    sp.edit().putString("sandwichprice","").apply();
-                    swtxt.setText("");
-                    swprice.setText("");
-
-                    sp.edit().putString("pizza","").apply();
-                    sp.edit().putString("pizzaprice","").apply();
-                    pizzatxt.setText("");
-                    pizzaprice.setText("");
-
-                    sp.edit().putString("icecream","").apply();
-                    sp.edit().putString("icecreamprice","").apply();
-                    icetxt.setText("");
-                    iceprice.setText("");
-
-                    sp.edit().putString("juice","").apply();
-                    sp.edit().putString("juiceprice","").apply();
-                    juicetxt.setText("");
-                    juiceprice.setText("");
-
-                    sum.setText("0");
-                }
-            });
+        findViewById(R.id.ord2).setOnClickListener(v -> pay());
     }
-    private void pay()
-    {
-        Checkout co = new Checkout();
-        JSONObject object = new JSONObject();
-        try {
-            object.put("name","Sameep Hedaoo");
-            object.put("desc","This is a test");
-            object.put("currency","INR");
-            object.put("amount","10000");
 
-            JSONObject prefill = new JSONObject();
-            prefill.put("contact","8109477448");
-            prefill.put("email","sameephedaoo@gmail.com");
-            prefill.put("prefill",prefill);
-            co.open(Cart.this,object);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
+    private void loadCartItems() {
+        t1.setText(sp.getString("cart1", ""));
+        prc1.setText(sp.getString("cart1price", ""));
+        vadatxt.setText(sp.getString("vada", ""));
+        vadaprice.setText(sp.getString("vadaprice", ""));
+        swtxt.setText(sp.getString("sandwich", ""));
+        swprice.setText(sp.getString("sandwichprice", ""));
+        pizzatxt.setText(sp.getString("pizza", ""));
+        pizzaprice.setText(sp.getString("pizzaprice", ""));
+        icetxt.setText(sp.getString("icecream", ""));
+        iceprice.setText(sp.getString("icecreamprice", ""));
+        juicetxt.setText(sp.getString("juice", ""));
+        juiceprice.setText(sp.getString("juiceprice", ""));
+    }
+
+    private void clearCartItems() {
+        sp.edit().remove("cart1").apply();
+        sp.edit().remove("cart1price").apply();
+        sp.edit().remove("vada").apply();
+        sp.edit().remove("vadaprice").apply();
+        sp.edit().remove("sandwich").apply();
+        sp.edit().remove("sandwichprice").apply();
+        sp.edit().remove("pizza").apply();
+        sp.edit().remove("pizzaprice").apply();
+        sp.edit().remove("icecream").apply();
+        sp.edit().remove("icecreamprice").apply();
+        sp.edit().remove("juice").apply();
+        sp.edit().remove("juiceprice").apply();
+        t1.setText("");
+        prc1.setText("");
+        vadatxt.setText("");
+        vadaprice.setText("");
+        swtxt.setText("");
+        swprice.setText("");
+        pizzatxt.setText("");
+        pizzaprice.setText("");
+        icetxt.setText("");
+        iceprice.setText("");
+        juicetxt.setText("");
+        juiceprice.setText("");
+    }
+
+    private void updateCalculation() {
+        calculation = 0;
+        calculation += getNumericValue(prc1);
+        calculation += getNumericValue(vadaprice);
+        calculation += getNumericValue(swprice);
+        calculation += getNumericValue(pizzaprice);
+        calculation += getNumericValue(iceprice);
+        calculation += getNumericValue(juiceprice);
+        sum.setText(calculation.toString());
+    }
+
+    private int getNumericValue(TextView textView) {
+        String text = textView.getText().toString();
+        if (!text.isEmpty()) {
+            return Integer.parseInt(text);
+        }
+        return 0;
+    }
+
+    private void pay() {
+        int sumtotal = calculation * 100;
+
+        if (sumtotal == 0) {
+            Toast.makeText(this, "Cannot proceed with an empty cart. Add items to the cart.", Toast.LENGTH_SHORT).show();
+            return;
         }
 
+        DocumentReference documentReference = fStore.collection("users").document(userId);
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (value != null && value.exists()) {
+                    String email = value.getString("email");
+                    String name = value.getString("fName");
+                    String mobno = value.getString("phone");
 
+                    try {
+                        object.put("name", name);
+                        object.put("desc", "This is a test");
+                        object.put("currency", "INR");
+                        object.put("amount", sumtotal);
 
+                        JSONObject prefill = new JSONObject();
+                        prefill.put("contact", mobno);
+                        prefill.put("email", email);
+                        object.put("prefill", prefill);
+                        co.open(Cart.this, object);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
     }
 
-    public void myClickItem(MenuItem item){
-        switch (item.getItemId()){
+    public void myClickItem(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.home:
                 Intent intent = new Intent(Cart.this, Home.class);
                 startActivity(intent);
@@ -211,27 +199,10 @@ public class Cart extends AppCompatActivity implements PaymentResultListener {
                 break;
             case R.id.cart:
                 Intent intent2 = new Intent(Cart.this, Cart.class);
-                String content = readFromFile("chinese1.txt");
-                t1.setText(sp.getString("cart1",null));
                 startActivity(intent2);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 finish();
                 break;
-
-        }
-    }
-
-    private String readFromFile(String fileName){
-        File path = getApplicationContext().getFilesDir();
-        File readFrom = new File(path, fileName);
-        byte b[] = new byte[(int) readFrom.length()];
-        try {
-            FileInputStream stream = new FileInputStream(readFrom);
-            stream.read(b);
-            return new String(b);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return ex.toString();
         }
     }
 
@@ -246,24 +217,4 @@ public class Cart extends AppCompatActivity implements PaymentResultListener {
     public void onPaymentError(int i, String s) {
         Toast.makeText(this, "Payment Failed", Toast.LENGTH_SHORT).show();
     }
-
-//    @Override
-//    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//            Double price = Double.parseDouble(sp.getString("cart1price", "0"));
-//            Double cal = Double.parseDouble(total[position]);
-//            Double rate = price * cal;
-//            Integer a = rate.intValue();
-//            prc1.setText(a.toString());
-//
-//            Double price2 = Double.parseDouble(sp.getString("vadaprice", "0"));
-//            Double cal2 = Double.parseDouble(total[position]);
-//            Double rate2 = price2 * cal2;
-//            Integer a2 = rate2.intValue();
-//            vadaprice.setText(a2.toString());
-//    }
-
-//    @Override
-//    public void onNothingSelected(AdapterView<?> parent) {
-//
-//    }
 }
